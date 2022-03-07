@@ -43,8 +43,17 @@ public void draw ()
 }
 public boolean isWon()
 {
-    //your code here
-    return false;
+    for(int r = 0; r < buttons.length; r++){
+      for(int c = 0; c < buttons[r].length; c++){
+        if(mines.contains(buttons[r][c])){
+          r++;
+          c++;
+        }
+        if(!buttons[r][c].clicked)
+          return false; // check this
+      }
+    }
+    return true;
 }
 public void displayLosingMessage()
 {
@@ -64,7 +73,13 @@ public boolean isValid(int r, int c)
 public int countMines(int row, int col)
 {
     int numMines = 0;
-    //your code here
+    for(int r = row-1; r < row+2; r++){
+    for(int c = col-1; c < col+2; c++){
+      if(isValid(r,c) == true && mines.contains(buttons[r][c])){
+        numMines++;
+      } 
+    }
+  }
     return numMines;
 }
 public class MSButton
@@ -91,8 +106,26 @@ public class MSButton
     public void mousePressed () 
     {
         clicked = true;
-        if(isValid(r,c-1) && blobs[r][c-1].isMarked()){
-          blobs[r][c-1].mousePressed();
+        if(mouseButton == RIGHT && myLabel == ""){
+          flagged = !flagged;
+          if(flagged == false){
+            clicked = false;
+          }
+        }
+        else if(mines.contains(this)){
+          displayLosingMessage();
+        }
+        else if(countMines(myRow, myCol) > 0){
+          myLabel = "" + (countMines(myRow, myCol));
+        }
+        else{
+          for(int r = myRow-1; r < myRow+2; r++){
+            for(int c = myCol-1; c < myCol+2; c++){
+              if(isValid(r,c-1) && buttons[r][c-1].clicked){
+                buttons[r][c-1].mousePressed();
+              }
+            }
+          }
         }
     }
     public void draw () 
