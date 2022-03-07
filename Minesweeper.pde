@@ -21,18 +21,18 @@ void setup ()
       }
     }
     
-    
-    setMines();
+    mines = new ArrayList <MSButton> ();
+    for (int i=0; i<(NUM_ROWS*NUM_COLS/7); i++){
+       setMines();
+    }
 }
 public void setMines()                                                                                                                                                                      
 {
-    for(int i = 0; i < 5; i++){
       int r = (int)(Math.random()+NUM_ROWS);
       int c = (int)(Math.random()+NUM_COLS);
       if(!mines.contains(buttons[r][r])){
         mines.add(buttons[r][c]);
       }
-    }
 }
 
 public void draw ()
