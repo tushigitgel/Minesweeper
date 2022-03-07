@@ -124,7 +124,7 @@ public class MSButton
         else{
           for(int r = myRow-1; r < myRow+2; r++){
             for(int c = myCol-1; c < myCol+2; c++){
-              if(isValid(r,c-1) && buttons[r][c-1].clicked == false){
+              if(isValid(r,c-1) && buttons[r][c-1].clicked == true){
                 buttons[r][c-1].mousePressed();
               }
             }
