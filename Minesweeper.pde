@@ -1,7 +1,7 @@
 import de.bezier.guido.*;
 //Declare and initialize constants NUM_ROWS and NUM_COLS = 20
-private final static int NUM_ROWS = 15;
-private final static int NUM_COLS = 15;
+private final static int NUM_ROWS = 20;
+private final static int NUM_COLS = 20;
 private MSButton[][] buttons; //2d array of minesweeper buttons
 private ArrayList <MSButton> mines; //ArrayList of just the minesweeper buttons that are mined
 
@@ -20,17 +20,18 @@ void setup ()
         buttons[r][c] = new MSButton(r,c);
       }
     }
-    
     mines = new ArrayList <MSButton> ();
     setMines();
 }
 public void setMines()                                                                                                                                                                      
 {
-      int r = (int)(Math.random()+NUM_ROWS);
-      int c = (int)(Math.random()+NUM_COLS);
-      if(!mines.contains(buttons[r][r])){
+  for(int i = 0; i < 50; i++){
+      int r = (int)(Math.random()*NUM_ROWS);
+      int c = (int)(Math.random()*NUM_COLS);
+      if(!mines.contains(buttons[r][c])){
         mines.add(buttons[r][c]);
       }
+  }
 }
 
 public void draw ()
@@ -41,21 +42,18 @@ public void draw ()
 }
 public boolean isWon()
 {
-    for(int r = 0; r < buttons.length; r++){
-      for(int c = 0; c < buttons[r].length; c++){
-        if(mines.contains(buttons[r][c])){
-          r++;
-          c++;
-        }
-        if(!buttons[r][c].clicked)
+    for(int r = 0; r < NUM_ROWS; r++){
+      for(int c = 0; c < NUM_COLS; c++){
+        if(buttons[r][c].clicked == false && !mines.contains(buttons[r][c])){
           return false; // check this
       }
     }
-    return true;
+   }
+   return true;
 }
 public void displayLosingMessage()
 {
-    String losingMessage = "YOU LOSE";
+    String losingMessage = "YOU LOSE!";
     for (int i=5; i<5+losingMessage.length(); i++) {
         fill(255);
         buttons[9][i].myLabel = losingMessage.substring(i-5,i-4);
@@ -63,14 +61,14 @@ public void displayLosingMessage()
 }
 public void displayWinningMessage()
 {
-    String winningMessage = "YOU WIN";
+    String winningMessage = "YOU WIN!";
     for (int i=5; i<5+winningMessage.length(); i++) {
         buttons[9][i].myLabel = winningMessage.substring(i-5,i-4);
     }
 }
 public boolean isValid(int r, int c)
 {
-    if(r > -1 && c > -1 && r < NUM_ROWS && c < NUM_COLS){
+    if(r >= 0 && c >= 0 && r < NUM_ROWS && c < NUM_COLS){
       return true;
     }
     return false;
@@ -126,7 +124,7 @@ public class MSButton
         else{
           for(int r = myRow-1; r < myRow+2; r++){
             for(int c = myCol-1; c < myCol+2; c++){
-              if(isValid(r,c-1) && buttons[r][c-1].clicked){
+              if(isValid(r,c-1) && buttons[r][c-1].clicked == false){
                 buttons[r][c-1].mousePressed();
               }
             }
