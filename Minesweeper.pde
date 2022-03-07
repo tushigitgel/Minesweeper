@@ -53,11 +53,18 @@ public boolean isWon()
 }
 public void displayLosingMessage()
 {
-    String losingMessage = "YOU LOSE!";
-    for (int i=5; i<5+losingMessage.length(); i++) {
-        fill(255);
-        buttons[9][i].myLabel = losingMessage.substring(i-5,i-4);
-    }
+    for(int i=0;i<mines.size();i++)
+        if(mines.get(i).clicked==false)
+            mines.get(i).mousePressed();
+     
+    buttons[NUM_ROWS/2][(NUM_COLS/2)-4].setLabel("Y");
+    buttons[NUM_ROWS/2][(NUM_COLS/2)-3].setLabel("O");
+    buttons[NUM_ROWS/2][(NUM_COLS/2)-2].setLabel("U");
+    buttons[NUM_ROWS/2][(NUM_COLS/2)-1].setLabel("");
+    buttons[NUM_ROWS/2][(NUM_COLS/2)].setLabel("L");
+    buttons[NUM_ROWS/2][(NUM_COLS/2)+1].setLabel("O");
+    buttons[NUM_ROWS/2][(NUM_COLS/2)+2].setLabel("S");
+    buttons[NUM_ROWS/2][(NUM_COLS/2)+3].setLabel("E");
 }
 public void displayWinningMessage()
 {
