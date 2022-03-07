@@ -22,9 +22,7 @@ void setup ()
     }
     
     mines = new ArrayList <MSButton> ();
-    for (int i=0; i<(NUM_ROWS*NUM_COLS/7); i++){
-       setMines();
-    }
+    setMines();
 }
 public void setMines()                                                                                                                                                                      
 {
@@ -57,15 +55,22 @@ public boolean isWon()
 }
 public void displayLosingMessage()
 {
-    //your code here
+    String losingMessage = "YOU LOSE";
+    for (int i=5; i<5+losingMessage.length(); i++) {
+        fill(255);
+        buttons[9][i].myLabel = losingMessage.substring(i-5,i-4);
+    }
 }
 public void displayWinningMessage()
 {
-    //your code here
+    String winningMessage = "YOU WIN";
+    for (int i=5; i<5+winningMessage.length(); i++) {
+        buttons[9][i].myLabel = winningMessage.substring(i-5,i-4);
+    }
 }
 public boolean isValid(int r, int c)
 {
-    if(r > 0 && c > 0 && r <= NUM_ROWS && c <= NUM_COLS){
+    if(r > -1 && c > -1 && r < NUM_ROWS && c < NUM_COLS){
       return true;
     }
     return false;
